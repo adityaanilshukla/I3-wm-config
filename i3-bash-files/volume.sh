@@ -46,10 +46,12 @@ case $1 in
     up)
         pactl set-sink-volume @DEFAULT_SINK@ +5%
         send_notification
+	paplay ~/.config/i3/sounds/audio-volume-change.oga 
         ;;
     down)
         pactl set-sink-volume @DEFAULT_SINK@ -5%
         send_notification
+	paplay ~/.config/i3/sounds/audio-volume-change.oga 
         ;;
     mute)
         pactl set-sink-mute @DEFAULT_SINK@ toggle
