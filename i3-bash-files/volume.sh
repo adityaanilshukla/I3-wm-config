@@ -33,9 +33,10 @@ send_notification() {
     local icon
 
     if is_muted; then
-        icon="/usr/share/icons/breeze/status/24/audio-volume-muted-symbolic.svg"
+        icon="$HOME/.config/i3/icons/audio-volume-muted.svg"
+
     else
-        icon="/usr/share/icons/breeze/status/16/audio-volume-high-symbolic.svg"
+        icon="$HOME/.config/i3/icons/audio-volume-high-danger.svg"
     fi
 
     dunstify -i "$icon" -t 1000 -r 2593 -u normal "Volume: $volume%"
