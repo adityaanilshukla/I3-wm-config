@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Function to get the current brightness level
+get_brightness() {
+
+    # Get brightness using xbacklight and store it in the brightness variable
+    brightness=$(xbacklight -get)
+
+    #convert the brightness to an integer
+    brightness=${brightness%.*}
+
+    # Print out the brightness level to the console
+    echo "$brightness"
+}
+
+# Function to send a notification with brightness level
+send_notification() {
+    local brightness=$(get_brightness)
+    local icon="/usr/share/icons/breeze/actions/22/high-brightness.svg"
+
+    dunstify -i "$icon" -t 1000 -r 2593 -u normal "Brighness: $brightness%"
+}
+
+# Adjust the brightness based on the command argument
+case $1 in
+    up)
+	xbacklight -inc 10 
+        send_notification
+        ;;
+    down)
+	xbacklight -dec 10 
+        send_notification
+        ;;
+    *)
+        echo "Usage: $0 {up|down}"
+        exit 1
+        ;;
+esac
+
+exit 0

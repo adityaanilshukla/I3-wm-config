@@ -1,4 +1,4 @@
-exec_always --no-startup-id feh --bg-scale /home/aditya/Downloads/new-york-city-aerial-view-night-buildings.jpg
+exec_always --no-startup-id feh --bg-scale ~/Downloads/new-york-city-aerial-view-night-buildings.jpg
 
 # make the dunst notification daemon start
 exec --no-startup-id dunst
@@ -10,10 +10,10 @@ exec --no-startup-id greenclip daemon
 bindsym $mod+p exec --no-startup-id rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
 
 # clear clipboard history
-bindsym $mod+Shift+Delete exec /home/aditya/Self-executables/clear_clipboard.sh
+bindsym $mod+Shift+Delete exec --no-startup-id ~/.config/i3/i3-bash-files/clear_clipboard.sh
 
 # launch spectacle in rectangular region mode
-bindsym $mod+Shift+s exec /home/aditya/Self-executables/launch_spectacle.sh
+bindsym $mod+Shift+s exec ~/.config/i3/i3-bash-files/launch_spectacle.sh
 
 # Automatically load autorandr configuration when two external monitors are connected
 exec_always --no-startup-id autorandr --change --force --default docked
@@ -63,9 +63,9 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # bindsym XF86AudioMute exec --no-startup-id set-sink-mute @DEFAULT_SINK toggle && /home/aditya/Self-executables/toggle_volume.sh && $refresh_i3statusi
 
 # Volume Control Keybindings
-bindsym XF86AudioRaiseVolume exec --no-startup-id /home/aditya/Self-executables/volume.sh up
-bindsym XF86AudioLowerVolume exec --no-startup-id /home/aditya/Self-executables/volume.sh down
-bindsym XF86AudioMute exec --no-startup-id /home/aditya/Self-executables/volume.sh mute
+bindsym XF86AudioRaiseVolume exec --no-startup-id ~/.config/i3/i3-bash-files/volume.sh up
+bindsym XF86AudioLowerVolume exec --no-startup-id ~/.config/i3/i3-bash-files/volume.sh down
+bindsym XF86AudioMute exec --no-startup-id ~/.config/i3/i3-bash-files/volume.sh mute
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -179,10 +179,10 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # audio control commands
 
 # Toggle media playback (Play/Pause button)
-bindsym XF86AudioPlay exec --no-startup-id /home/aditya/Self-executables/toggle_playback.sh
+bindsym XF86AudioPlay exec --no-startup-id ~/.config/i3/i3-bash-files/toggle_playback.sh
 
 #binding to switch audio output perhaps now with visual indication
-bindsym Control+Mod4+z exec --no-startup-id /home/aditya/Self-executables/switch_audio_i3.sh
+bindsym Control+Mod4+z exec --no-startup-id ~/.config/i3/i3-bash-files/switch_audio_i3.sh
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -192,15 +192,15 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id /home/aditya/Self-executables/brightness.sh up
-bindsym XF86MonBrightnessDown exec --no-startup-id /home/aditya/Self-executables/brightness.sh down
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/i3-bash-files/brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/i3-bash-files/brightness.sh down
 
 #external monitor brightness controls
-
-# Increase brightness
-bindsym Control+Shift+Page_Up exec /home/aditya/Self-executables/external_brightness.sh up
-# Decrease brightness
-bindsym Control+Shift+Page_Down exec /home/aditya/Self-executables/external_brightness.sh down
+#WORK IN PROGRESS!!!!
+# # Increase brightness
+# bindsym Control+Shift+Page_Up exec ~/Self-executables/external_brightness.sh up
+# # Decrease brightness
+# bindsym Control+Shift+Page_Down exec ~/Self-executables/external_brightness.sh down
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -237,7 +237,5 @@ bar {
 
 
 # make mod+l lock the screen in i3 wm
-# bindsym $mod+l exec --no-startup-id i3lock -i /home/aditya/Downloads/new-york-city-aerial-view-night-buildings.jpg
-# bindsym $mod+shift+x exec --no-startup-id betterlockscreen -u /home/aditya/Downloads/new-york-city-aerial-view-night-buildings.jpg -l dim
 bindsym $mod+shift+x exec betterlockscreen -l dim
 
