@@ -18,8 +18,15 @@ send_notification() {
     local brightness=$(get_brightness)
     local icon="/usr/share/icons/breeze/actions/22/high-brightness.svg"
 
-    dunstify -i "$icon" -t 1000 -r 2593 -u normal "Brighness: $brightness%"
+    # create a horizontal bar to represent the brightness level
+    local bar=$(seq -s "─" $(($brightness / 5)) | sed 's/[0-9]//g')
+    #add a space after the bar
+    bar="$bar "
+
+    #notification params
+    dunstify -i "$icon" -t 1000 -r 2593 -u normal "Brighness: $bar$brightness%"
 }
+
 
 # Adjust the brightness based on the command argument
 case $1 in
