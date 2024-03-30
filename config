@@ -1,4 +1,5 @@
-exec_always --no-startup-id feh --bg-scale ~/Downloads/new-york-city-aerial-view-night-buildings.jpg
+#set the wallpaper
+exec_always --no-startup-id feh --bg-scale ~/.config/i3/images/new-york-city-aerial-view-night-buildings.jpg
 
 # make the dunst notification daemon start
 exec --no-startup-id dunst
