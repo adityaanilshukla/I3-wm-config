@@ -27,18 +27,24 @@ is_muted() {
     pactl list sinks | awk -v sink="$default_sink" '/Name: /{sink_found = ($2 == sink)} sink_found && /Mute: / {if ($2 == "yes") exit 0; else exit 1}'
 }
 
-# Function to send a notification with volume level
+# Modify send_notification function to include a horizontal bar that represents the volume level
 send_notification() {
     local volume=$(get_volume)
     local icon
 
     if is_muted; then
-        icon="$HOME/.config/i3/icons/audio-volume-muted.svg"
+	icon="$HOME/.config/i3/icons/audio-volume-muted.svg"
     else
-        icon="$HOME/.config/i3/icons/audio-volume-high.svg"
+	icon="$HOME/.config/i3/icons/audio-volume-high.svg"
     fi
 
-    dunstify -i "$icon" -t 1000 -r 2593 -u normal "Volume: $volume%"
+    # Create a horizontal bar that represents the volume level
+    local bar=$(seq -s "─" 0 $((volume / 5)) | sed 's/[0-9]//g')
+    # Add a space after the bar to separate it from the volume percentage
+    bar+=" "
+
+    dunstify -i "$icon" -t 1000 -r 2593 -u normal "Volume: $bar$volume%"
+
 }
 
 # Adjust the volume based on the command argument
