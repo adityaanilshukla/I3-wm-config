@@ -238,4 +238,3 @@ bar {
 
 # make mod+l lock the screen in i3 wm
 bindsym $mod+shift+x exec betterlockscreen -l dim
-

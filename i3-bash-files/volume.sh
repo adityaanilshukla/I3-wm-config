@@ -34,9 +34,8 @@ send_notification() {
 
     if is_muted; then
         icon="$HOME/.config/i3/icons/audio-volume-muted.svg"
-
     else
-        icon="$HOME/.config/i3/icons/audio-volume-high-danger.svg"
+        icon="$HOME/.config/i3/icons/audio-volume-high.svg"
     fi
 
     dunstify -i "$icon" -t 1000 -r 2593 -u normal "Volume: $volume%"
