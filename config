@@ -196,6 +196,11 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/i3-bash-files/brightness.sh up
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/i3-bash-files/brightness.sh down
 
+# launch nauitlus file manager
+# Launch Nautilus with dark theme
+bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.sh
+
+
 #external monitor brightness controls
 #WORK IN PROGRESS!!!!
 # # Increase brightness
