@@ -121,7 +121,7 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -199,6 +199,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/i3-bash-files/br
 # launch nauitlus file manager
 # Launch Nautilus with dark theme
 bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.sh
+#launch firefox
+bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
 
 
 #external monitor brightness controls
