@@ -240,7 +240,7 @@ bindsym $mod+r mode "resize"
 #polybar config
 # class                 border  backgr. text    indicator child_border
 client.focused          #808080 #808080 #fbf1c7 #285577   #808080
-client.focused_inactive #808080 #808080 #fbf1c7 #282828   #808080
+client.focused_inactive #000000 #000000 #fbf1c7 #282828   #000000
 client.unfocused        #000000 #000000 #fbf1c7 #282828   #000000
 client.urgent           #2f343a #900000 #ffffff #900000   #900000
 client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
