@@ -185,6 +185,9 @@ bindsym XF86AudioPlay exec --no-startup-id ~/.config/i3/i3-bash-files/toggle_pla
 #binding to switch audio output perhaps now with visual indication
 bindsym Control+Mod4+z exec --no-startup-id ~/.config/i3/i3-bash-files/switch_audio_i3.sh
 
+#binding to restart pipewire
+bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/i3-bash-files/restart_pipewire.sh
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
