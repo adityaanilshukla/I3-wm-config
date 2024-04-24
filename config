@@ -215,6 +215,8 @@ bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.s
 #launch firefox
 bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
 
+# open the latest file in the downloads folder, can be used to open files sent by KDE connect
+bindsym $mod+o exec ~/.config/i3/i3-bash-files/open-latest-download.sh
 
 #external monitor brightness controls
 #WORK IN PROGRESS!!!!
