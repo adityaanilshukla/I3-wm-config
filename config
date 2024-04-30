@@ -223,6 +223,7 @@ bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
 
 # launch nvim ToDoList window floating
 for_window [title="ToDoList"] floating enable, resize set 800 600
+for_window [title="ToDoList"] move position center
 # Keybinding to open the to-do list in nvim
 bindsym $mod+Shift+t exec "kitty -T 'ToDoList' nvim /home/$(whoami)/SIM_study_kalu/to-do-list.txt"
 
