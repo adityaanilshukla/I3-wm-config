@@ -93,6 +93,9 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 # start rofi calculator
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
 
+# mount external drives
+bindsym $mod+Insert exec --no-startup-id ~/.config/i3/i3-bash-files/mount-drives.sh
+bindsym $mod+F9 exec --no-startup-id ~/.config/i3/i3-bash-files/mount-drives.sh
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
