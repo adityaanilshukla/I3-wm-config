@@ -199,10 +199,6 @@ bindsym Control+Mod4+z exec --no-startup-id ~/.config/i3/i3-bash-files/switch_au
 #binding to restart pipewire
 bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/i3-bash-files/restart_pipewire.sh
 
-# open pavucontrol in floating mode
-bindsym $mod+Ctrl+m exec pavucontrol
-for_window [class="Pavucontrol"] floating enable
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -214,11 +210,22 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/.config/i3/i3-bash-files/brightness.sh up
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/i3-bash-files/brightness.sh down
 
+# launching apps section
+
 # launch nauitlus file manager
 # Launch Nautilus with dark theme
 bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.sh
 #launch firefox
 bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
+
+# launch nvim ToDoList window floating
+for_window [title="ToDoList"] floating enable, resize set 800 600
+# Keybinding to open the to-do list in nvim
+bindsym $mod+Shift+t exec "kitty -T 'ToDoList' nvim /home/$(whoami)/SIM_study_kalu/to-do-list.txt"
+
+# open pavucontrol in floating mode
+bindsym $mod+Ctrl+m exec pavucontrol
+for_window [class="Pavucontrol"] floating enable
 
 # open the latest file in the downloads folder, can be used to open files sent by KDE connect
 bindsym $mod+o exec ~/.config/i3/i3-bash-files/open-latest-download.sh
