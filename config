@@ -87,6 +87,9 @@ bindsym $mod+Return exec kitty
 # kill focused window
 bindsym $mod+q kill
 
+# kill focused window with xkill
+bindsym --release $mod+Shift+q exec xkill
+
 # start rofi (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun
 
