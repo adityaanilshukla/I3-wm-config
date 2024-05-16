@@ -224,7 +224,7 @@ bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.s
 #launch firefox
 bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
 #launch obsidian
-bindsym $mod+o exec --no-startup-id ~/.config/i3/i3-bash-files/launch_obsidian.sh
+bindsym $mod+o exec --no-startup-id ~/.config/i3/i3-bash-files/launch-obsidian.sh
 
 # launch nvim ToDoList window floating
 for_window [title="ToDoList"] floating enable, resize set 800 600
