@@ -8,3 +8,4 @@ workspace_4_layout.json
 workspace_4_programs.sh
 workspace_5_layout.json
 workspace_5_programs.sh
+i3-bash-files/check-connection-type.sh

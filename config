@@ -223,6 +223,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/i3-bash-files/br
 bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.sh
 #launch firefox
 bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
+#launch obsidian
+bindsym $mod+o exec --no-startup-id ~/.config/i3/i3-bash-files/launch_obsidian.sh
 
 # launch nvim ToDoList window floating
 for_window [title="ToDoList"] floating enable, resize set 800 600
@@ -235,7 +237,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 for_window [class="Pavucontrol"] floating enable
 
 # open the latest file in the downloads folder, can be used to open files sent by KDE connect
-bindsym $mod+o exec ~/.config/i3/i3-bash-files/open-latest-download.sh
+bindsym $mod+Shift+o exec ~/.config/i3/i3-bash-files/open-latest-download.sh
 
 #session handling
 #save the current session
