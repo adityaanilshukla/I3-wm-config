@@ -218,9 +218,10 @@ bindsym XF86MonBrightnessDown exec --no-startup-id ~/.config/i3/i3-bash-files/br
 
 # launching apps section
 
-# launch nauitlus file manager
-# Launch Nautilus with dark theme
-bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.sh
+# launch Ranger file manager
+bindsym $mod+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch-ranger.sh
+# launch Nautilus with dark theme
+bindsym $mod+Shift+n exec --no-startup-id ~/.config/i3/i3-bash-files/launch_nautilus.sh
 #launch firefox
 bindsym $mod+f exec --no-startup-id ~/.config/i3/i3-bash-files/launch_firefox.sh
 #launch obsidian
