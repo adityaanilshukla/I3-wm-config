@@ -234,6 +234,10 @@ bindsym $mod+Shift+n exec --no-startup-id $bash-files-path/launch_nautilus.sh
 bindsym $mod+f exec --no-startup-id $bash-files-path/launch_firefox.sh
 #launch obsidian
 bindsym $mod+o exec --no-startup-id $bash-files-path/launch-obsidian.sh
+#launch firefox with google calendar
+for_window [title="Calendar"] floating enable, resize set 1000 1000
+for_window [title="Calendar"] move position center
+bindsym $mod+Control+c exec firefox --new-window https://calendar.google.com/calendar/u/0/r
 
 # launch nvim ToDoList window floating
 for_window [title="ToDoList"] floating enable, resize set 800 600
