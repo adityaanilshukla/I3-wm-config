@@ -2,6 +2,8 @@
 set $bash-files-path ~/.config/i3/bash-files
 #defie a string that stores the path to images directory
 set $images-path ~/.config/i3/images
+#define a sting that stores the path to the python scripts directory
+set $python-scripts-path ~/.config/i3/python-scripts
 
 #set the wallpaper
 exec_always --no-startup-id feh --bg-scale $images-path/new-york-city-aerial-view-night-buildings.jpg
@@ -106,7 +108,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
 
 # start rofi-beats
-bindsym $mod+b exec --no-startup-id $bash-files-path/rofi-beats.sh 
+bindsym $mod+b exec python $python-scripts-path/rofi-beats-linux.py 
 
 # mount external drives
 bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
