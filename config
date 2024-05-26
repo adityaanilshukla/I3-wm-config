@@ -98,11 +98,15 @@ bindsym --release $mod+Shift+q exec xkill
 # kill dunst notifications
 bindsym Shift+x exec --no-startup-id $bash-files-path/close-notifications.sh
 
+# rofi launcher bindings
 # start rofi (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun
 
 # start rofi calculator
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
+
+# start rofi-beats
+bindsym $mod+b exec --no-startup-id $bash-files-path/rofi-beats.sh 
 
 # mount external drives
 bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
