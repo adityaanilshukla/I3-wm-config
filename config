@@ -256,6 +256,9 @@ for_window [class="Pavucontrol"] floating enable
 # open the latest file in the downloads folder, can be used to open files sent by KDE connect
 bindsym $mod+Shift+o exec $bash-files-path/open-latest-download.sh
 
+#toggle polybar
+bindsym Control+0 exec --no-startup-id $bash-files-path/toggle-polybar.sh
+
 #session handling
 #save the current session
 bindsym $mod+Ctrl+s exec --no-startup-id $bash-files-path/session-save-notify.sh 
