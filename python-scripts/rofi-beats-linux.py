@@ -330,7 +330,10 @@ radios = {
 "URL":"http://stream2.dancewave.online:8080/dance.mp3"},
 "World":{
 "notification": "world ☕️🎶",
-"URL":"http://starfrosch.ch:8000/stream"}
+"URL":"http://starfrosch.ch:8000/stream"},
+"stop":{
+"notification": "stop ☕️🎶",
+"URL":"stop"},
 }
 
 # Declare where the output of the player will be written, and its name. 
@@ -370,8 +373,12 @@ cleanoutput = " ".join(output.split()[1:])
 
 # If there is an error, notify user and stop execution
 
-if cleanoutput in radios:
+if cleanoutput != "stop" and cleanoutput in radios:
     url = radios[cleanoutput]['URL']
+elif cleanoutput == "stop":
+    s.run(["notify-send","Stopped radio"])
+    s.run(["pkill","-f","radio-mpv"])
+    sys.exit()
 else:
     s.run(["notify-send","Station not found"])
     sys.exit()
