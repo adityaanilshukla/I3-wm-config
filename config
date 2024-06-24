@@ -48,10 +48,13 @@ set $mod Mod4
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
+new_window pixel 2 
+for_window [window_role="^browser$"] border pixel 1
+
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -122,9 +125,8 @@ bindsym $mod+F9 exec --no-startup-id $bash-files-path/mount-drives.sh
 
 # change focus
 bindsym $mod+j focus left
-# bindsym $mod+k focus down
-# bindsym $mod+l focus up
-# bindsym $mod+semicolon focus right
+bindsym $mod+semicolon focus down
+bindsym $mod+l focus up
 bindsym $mod+k focus right
 
 # alternatively, you can use the cursor keys:
@@ -135,9 +137,9 @@ bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
+bindsym $mod+Shift+k move right 
 bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+semicolon move down 
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -331,8 +333,11 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # lock the screen in i3 wm
-bindsym $mod+shift+x exec betterlockscreen -l dim
+# bindsym $mod+Shift+x exec --no-startup-id betterlocksreen -u $images-path/new-york-city-aerial-view-night-buildings.jpg -l dim
+bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dim
 
+
+# start polybar
 exec_always ~/.config/polybar/launch.sh &
 
 

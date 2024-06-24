@@ -1,23 +1,30 @@
 #!/bin/bash
 
+# Define the path to your images
+images_path="$HOME/.config/i3/images"
+
 # Get the list of connected sinks
 sinks=$(pactl list short sinks | awk '{print $2}')
 
 # Define your audio devices by searching for known patterns
-SPEAKER=$(echo "$sinks" | grep 'pci-0000_00_1f.3.analog-stereo')
-HEADPHONES=$(echo "$sinks" | grep 'usb-Google_Realtek_USB2.0_Audio_201405280001-00.analog-stereo')
+USB_HEADPHONES=$(echo "$sinks" | grep 'usb-Google_Realtek_USB2.0_Audio')
+BUILTIN_SPEAKER=$(echo "$sinks" | grep 'pci-0000_00_1f.3.analog-stereo')
+BLUETOOTH_HEADPHONES=$(echo "$sinks" | grep 'bluez_output')
 
 # Function to send a notification with the sound output device icon
 send_notification() {
     local current_sink=$1
     local icon
 
-    if [ "$current_sink" == "$SPEAKER" ]; then
+    if [ "$current_sink" == "$BUILTIN_SPEAKER" ]; then
         icon="$HOME/.config/i3/icons/computer-laptop.svg"
-        dunstify -i "$icon" -t 1000 -r 2593 -u normal "Audio output switched to: Laptop Speaker"
-    elif [ "$current_sink" == "$HEADPHONES" ]; then
+        dunstify -i "$icon" -t 1000 -r 2593 -u normal "Audio output switched to: Built-in Speaker"
+    elif [ "$current_sink" == "$USB_HEADPHONES" ]; then
         icon="$HOME/.config/i3/icons/audio-headphones.svg"
-        dunstify -i "$icon" -t 1000 -r 2593 -u normal "Audio output switched to: Headphones"
+        dunstify -i "$icon" -t 1000 -r 2593 -u normal "Audio output switched to: USB Headphones"
+    elif [ "$current_sink" == "$BLUETOOTH_HEADPHONES" ]; then
+        icon="$HOME/.config/i3/icons/audio-headphones-bluetooth.svg"
+        dunstify -i "$icon" -t 1000 -r 2593 -u normal "Audio output switched to: Bluetooth Headphones"
     else
         dunstify -t 1000 -r 2593 -u normal "Audio Output" "No other sinks found to switch to."
     fi

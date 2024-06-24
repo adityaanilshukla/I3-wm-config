@@ -29,3 +29,39 @@ mount_drive() {
 for uuid in "${uuids[@]}"; do
     mount_drive "$uuid"
 done
+
+
+# #!/bin/bash
+#
+# # Define UUIDs for drives
+# uuids=("4C6E97526E973424")
+#
+# # Function to mount a drive
+# mount_drive() {
+#     local uuid=$1
+#     local mount_point="/run/media/aditya"
+#
+#     # Check if the drive is already mounted
+#     if grep -q "$uuid" /proc/mounts; then
+#         echo "Drive with UUID=$uuid is already mounted."
+#         notify-send "Drive Status" "UUID=$uuid is already mounted." -u normal
+#         return
+#     fi
+#
+#     # Prompt for sudo password
+#     sudo_password=$(zenity --password --title="Enter Sudo Password" --text="Please enter your sudo password:")
+#
+#     # Attempt to mount the drive
+#     if sudo -S mount /dev/disk/by-uuid/$uuid $mount_point; then
+#         echo "Mounted UUID=$uuid at $mount_point"
+#         notify-send "Drive Mounted" "Successfully mounted UUID=$uuid at $mount_point" -u normal
+#     else
+#         echo "Failed to mount UUID=$uuid"
+#         notify-send "Mount Failed" "Failed to mount UUID=$uuid" -u critical
+#     fi
+# }
+#
+# # Iterate over UUIDs and mount each drive
+# for uuid in "${uuids[@]}"; do
+#     mount_drive "$uuid"
+# done
