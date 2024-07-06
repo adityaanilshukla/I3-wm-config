@@ -5,6 +5,12 @@ set $images-path ~/.config/i3/images
 #define a sting that stores the path to the python scripts directory
 set $python-scripts-path ~/.config/i3/python-scripts
 
+# # set the default dark themes for gtk and qt applications
+# exec --no-startup-id xsettingsd
+
+#use xset to make the display never sleep 
+exec --no-startup-id xset s off -dpms
+
 #set the wallpaper
 exec_always --no-startup-id feh --bg-scale $images-path/new-york-city-aerial-view-night-buildings.jpg
 
@@ -44,17 +50,6 @@ bindsym $mod+Shift+d exec --no-startup-id $bash-files-path/change-docking-state.
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-
-# Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:monospace 8
-new_window pixel 2 
-for_window [window_role="^browser$"] border pixel 1
-
-
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 8
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -101,7 +96,7 @@ bindsym $mod+q kill
 bindsym --release $mod+Shift+q exec xkill
 
 # kill dunst notifications
-bindsym Shift+x exec --no-startup-id $bash-files-path/close-notifications.sh
+bindsym Control + Shift+x exec --no-startup-id $bash-files-path/close-notifications.sh
 
 # rofi launcher bindings
 # start rofi (a program launcher)
@@ -241,11 +236,6 @@ bindsym XF86MonBrightnessDown exec --no-startup-id $bash-files-path/brightness.s
 # launch Ranger file manager
 bindsym $mod+n exec --no-startup-id $bash-files-path/launch-ranger.sh
 
-# launch Nautilus with dark theme
-# bindsym $mod+Shift+n exec --no-startup-id $bash-files-path/launch-nautilus.sh
-# launch Nemo with mod shift n
-bindsym $mod+Shift+n exec --no-startup-id nemo
-
 #launch firefox
 bindsym $mod+f exec --no-startup-id $bash-files-path/launch-firefox.sh
 
@@ -322,9 +312,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-#polybar config
+# Set border width
+for_window [class=".*"] border pixel 1 
+
+# Window colors
 # class                 border  backgr. text    indicator child_border
-client.focused          #808080 #808080 #fbf1c7 #285577   #808080
+client.focused          #ffffff #808080 #fbf1c7 #ffffff   #ffffff
 client.focused_inactive #000000 #000000 #fbf1c7 #282828   #000000
 client.unfocused        #000000 #000000 #fbf1c7 #282828   #000000
 client.urgent           #2f343a #900000 #ffffff #900000   #900000

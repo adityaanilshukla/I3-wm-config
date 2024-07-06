@@ -1,67 +1,44 @@
 #!/bin/bash
 
 # Define UUIDs for drives
-uuids=("4C6E97526E973424")
+uuids=("4C6E97526E973424") # Add your drive UUIDs here
 
-# Function to mount a drive
 mount_drive() {
-    local uuid=$1
+   local uuid=$1
+   local password=$2
 
-    # Check if the drive is already mounted
-    if udisksctl info --block-device "/dev/disk/by-uuid/$uuid" &>/dev/null; then
-        # Attempt to mount the drive
-        local mount_output=$(udisksctl mount --block-device "/dev/disk/by-uuid/$uuid" --no-user-interaction 2>&1)
-        if [[ $mount_output == *"mounted at"* ]]; then
-            local mount_point=$(echo $mount_output | sed -n 's/.*mounted at \(.*\)\./\1/p')
-            echo "Mounted UUID=$uuid at $mount_point"
-            notify-send "Drive Mounted" "Successfully mounted UUID=$uuid at $mount_point"
-        else
-            echo "Failed to mount UUID=$uuid"
-            notify-send "Mount Failed" "Failed to mount UUID=$uuid"
-        fi
-    else
-        echo "No drive with UUID=$uuid found"
-        notify-send "Drive Not Found" "No drive with UUID=$uuid found"
-    fi
+   # Define mount point
+   local mount_point="/mnt/Sanctuary"
+
+   # Check if the drive is already mounted
+   if ! findmnt -U "$uuid" &>/dev/null; then
+       # Attempt to mount the drive using echo to pass the password to sudo
+       echo $password | sudo -S mount -U "$uuid" "$mount_point" 2>/dev/null
+       if [ $? -eq 0 ]; then
+           echo "Mounted UUID=$uuid at $mount_point"
+           notify-send "Drive Mounted" "Successfully mounted UUID=$uuid at $mount_point"
+       else
+           echo "Failed to mount UUID=$uuid"
+           notify-send "Mount Failed" "Failed to mount UUID=$uuid"
+       fi
+   else
+       echo "Drive UUID=$uuid is already mounted."
+       notify-send "Drive Already Mounted" "Drive UUID=$uuid is already mounted at $(findmnt -U "$uuid" -n -o TARGET)"
+   fi
 }
 
-# Iterate over UUIDs and mount each drive
-for uuid in "${uuids[@]}"; do
-    mount_drive "$uuid"
-done
+# Set GTK theme to Adwaita:dark
+export GTK_THEME="Adwaita:dark"
 
+# Prompt for the sudo password
+PASSWORD=$(zenity --password --title="Authentication Required")
 
-# #!/bin/bash
-#
-# # Define UUIDs for drives
-# uuids=("4C6E97526E973424")
-#
-# # Function to mount a drive
-# mount_drive() {
-#     local uuid=$1
-#     local mount_point="/run/media/aditya"
-#
-#     # Check if the drive is already mounted
-#     if grep -q "$uuid" /proc/mounts; then
-#         echo "Drive with UUID=$uuid is already mounted."
-#         notify-send "Drive Status" "UUID=$uuid is already mounted." -u normal
-#         return
-#     fi
-#
-#     # Prompt for sudo password
-#     sudo_password=$(zenity --password --title="Enter Sudo Password" --text="Please enter your sudo password:")
-#
-#     # Attempt to mount the drive
-#     if sudo -S mount /dev/disk/by-uuid/$uuid $mount_point; then
-#         echo "Mounted UUID=$uuid at $mount_point"
-#         notify-send "Drive Mounted" "Successfully mounted UUID=$uuid at $mount_point" -u normal
-#     else
-#         echo "Failed to mount UUID=$uuid"
-#         notify-send "Mount Failed" "Failed to mount UUID=$uuid" -u critical
-#     fi
-# }
-#
-# # Iterate over UUIDs and mount each drive
-# for uuid in "${uuids[@]}"; do
-#     mount_drive "$uuid"
-# done
+# Check if password was entered
+if [ -n "$PASSWORD" ]; then
+   # Iterate over UUIDs and mount each drive
+   for uuid in "${uuids[@]}"; do
+       mount_drive "$uuid" "$PASSWORD"
+   done
+else
+   notify-send "No Password Entered" "Operation cancelled by user."
+fi
