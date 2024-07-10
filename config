@@ -243,17 +243,14 @@ bindsym $mod+f exec --no-startup-id $bash-files-path/launch-firefox.sh
 bindsym $mod+o exec --no-startup-id $bash-files-path/launch-obsidian.sh
 
 #launch firefox with google calendar
-for_window [title="Calendar"] move absolute position center
-for_window [title="Calendar"] floating enable, resize set 800 800 
+for_window [title="G-Calendar"] move absolute position center
+for_window [title="G-Calendar"] floating enable, resize set 800 800 
 bindsym $mod+Control+c exec firefox --new-window https://calendar.google.com/calendar/u/0/r
 
 #lauch the ranger cheat sheet page in firefox in floating mode with the link https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb with the binding alt b
 for_window [title="RangerCheatSheet"] move absolute position center
 for_window [title="RangerCheatSheet"] floating enable, resize set 800 800 
 bindsym Mod1+b exec firefox --new-window https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb
-
-#launch the foliate ebook reader
-bindsym $mod+Shift+b exec --no-startup-id $bash-files-path/launch-foliate.sh
 
 # launch nvim ToDoList window floating
 for_window [title="ToDoList"] floating enable, resize set 800 600
