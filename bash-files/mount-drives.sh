@@ -27,9 +27,6 @@ mount_drive() {
    fi
 }
 
-# Set GTK theme to Adwaita:dark
-export GTK_THEME="Adwaita:dark"
-
 # Prompt for the sudo password
 PASSWORD=$(zenity --password --title="Authentication Required")
 
