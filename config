@@ -346,4 +346,5 @@ bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dim
 # start polybar
 exec_always ~/.config/polybar/launch.sh &
 
-
+# open helper page in firefox
+bindsym $mod+Shift+slash exec "firefox --new-window https://github.com/adityaanilshukla/I3-wm-config/blob/master/helper.md"
