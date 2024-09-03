@@ -342,7 +342,6 @@ client.background       #ffffff
 # bindsym $mod+Shift+x exec --no-startup-id betterlocksreen -u $images-path/new-york-city-aerial-view-night-buildings.jpg -l dim
 bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dim
 
-
 # start polybar
 exec_always ~/.config/polybar/launch.sh &
 
