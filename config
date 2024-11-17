@@ -5,14 +5,14 @@ set $images-path ~/.config/i3/images
 #define a sting that stores the path to the python scripts directory
 set $python-scripts-path ~/.config/i3/python-scripts
 
-# # set the default dark themes for gtk and qt applications
-# exec --no-startup-id xsettingsd
-
 #use xset to make the display never sleep 
 exec --no-startup-id xset s off -dpms
 
-#set the wallpaper
-exec_always --no-startup-id feh --bg-scale $images-path/new-york-city-aerial-view-night-buildings.jpg
+# Automatically load autorandr configuration when external monitor is connected
+exec_always --no-startup-id ~/.screenlayout/sigle-ultrawide-dock.sh
+
+#set the wallpaper based on the monitor resolution
+exec_always --no-startup-id $bash-files-path/set_wallpaper.sh
 
 # make the dunst notification daemon start
 exec --no-startup-id dunst
@@ -28,12 +28,6 @@ bindsym $mod+Shift+Delete exec --no-startup-id $bash-files-path/clear-clipboard.
 
 # launch spectacle in rectangular region mode
 bindsym $mod+Shift+s exec $bash-files-path/launch-spectacle.sh
-
-# Automatically load autorandr configuration when two external monitors are connected
-exec_always --no-startup-id autorandr --change --force --default docked
-
-# Make the main external monitor the only active monitor when docked
-bindsym $mod+Shift+m exec --no-startup-id $bash-files-path/main-monitor.sh
 
 # Make the laptop screen teh only active monitor
 bindsym $mod+Control+Shift+l exec --no-startup-id $bash-files-path/disable-external-monitors.sh
@@ -341,7 +335,6 @@ client.background       #ffffff
 # lock the screen in i3 wm
 # bindsym $mod+Shift+x exec --no-startup-id betterlocksreen -u $images-path/new-york-city-aerial-view-night-buildings.jpg -l dim
 bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dim
-
 
 # start polybar
 exec_always ~/.config/polybar/launch.sh &
