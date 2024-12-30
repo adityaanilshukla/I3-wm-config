@@ -54,3 +54,11 @@ CURRENT_SINK=$(pactl get-default-sink)
 
 # Switch to the next sink
 switch_sink "$CURRENT_SINK"
+
+
+# switch to laptop speakers and make it default
+# pactl set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo
+# switch to monitor speakers
+# pactl set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo
+
+

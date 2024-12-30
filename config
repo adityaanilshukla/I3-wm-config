@@ -1,3 +1,6 @@
+# Automatically load autorandr configuration when external monitor is connected
+exec_always --no-startup-id $bash-files-path/single-ultrawide-dock.sh
+
 #define a string that stores the path to bash-files directory
 set $bash-files-path ~/.config/i3/bash-files
 #defie a string that stores the path to images directory
@@ -7,9 +10,6 @@ set $python-scripts-path ~/.config/i3/python-scripts
 
 #use xset to make the display never sleep 
 exec --no-startup-id xset s off -dpms
-
-# Automatically load autorandr configuration when external monitor is connected
-exec_always --no-startup-id ~/.screenlayout/sigle-ultrawide-dock.sh
 
 #set the wallpaper based on the monitor resolution
 exec_always --no-startup-id $bash-files-path/set_wallpaper.sh
