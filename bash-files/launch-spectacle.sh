@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# Launch Spectacle in rectangular region mode
-spectacle -r
+# Launch Ksnip in rectangular region mode
+ksnip -r

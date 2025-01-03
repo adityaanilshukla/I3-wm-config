@@ -102,7 +102,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
 
 # start rofi-beats
-bindsym $mod+b exec python $python-scripts-path/rofi-beats-linux.py 
+bindsym $mod+b exec python3 $python-scripts-path/rofi-beats-linux.py 
 
 # mount external drives
 bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
@@ -254,7 +254,7 @@ bindsym $mod+Shift+t exec "kitty -T 'ToDoList' nvim /home/$(whoami)/SIM_study_ka
 
 # open pavucontrol in floating mode
 bindsym $mod+Ctrl+m exec pavucontrol
-for_window [class="Pavucontrol"] floating enable
+# for_window [class="Pavucontrol"] floating enable
 
 # open the latest file in the downloads folder, can be used to open files sent by KDE connect
 bindsym $mod+Shift+o exec $bash-files-path/open-latest-download.sh
