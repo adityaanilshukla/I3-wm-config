@@ -25,10 +25,10 @@ bindsym $mod+p exec --no-startup-id rofi -modi "clipboard:greenclip print" -show
 # clear clipboard history
 bindsym $mod+Shift+Delete exec --no-startup-id $bash-files-path/clear-clipboard.sh
 
-# launch spectacle in rectangular region mode
-bindsym $mod+Shift+s exec $bash-files-path/launch-spectacle.sh
+# launch ksnip in rectangular region mode
+bindsym $mod+Shift+s exec $bash-files-path/launch-screenshot-util.sh
 
-# Make the laptop screen teh only active monitor
+# Make the laptop screen the only active monitor
 bindsym $mod+Control+Shift+l exec --no-startup-id $bash-files-path/disable-external-monitors.sh
 
 # change docking state
@@ -83,7 +83,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec  --no-startup-id kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -102,7 +102,7 @@ bindsym $mod+d exec --no-startup-id rofi -show drun
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
 
 # start rofi-beats
-bindsym $mod+b exec python3 $python-scripts-path/rofi-beats-linux.py 
+bindsym $mod+b exec --no-startup-id python3 $python-scripts-path/rofi-beats-linux.py 
 
 # mount external drives
 bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
@@ -239,25 +239,25 @@ bindsym $mod+o exec --no-startup-id $bash-files-path/launch-obsidian.sh
 #launch firefox with google calendar
 for_window [title="G-Calendar"] move absolute position center
 for_window [title="G-Calendar"] floating enable, resize set 800 800 
-bindsym $mod+Control+c exec firefox --new-window https://calendar.google.com/calendar/u/0/r
+bindsym $mod+Control+c exec --no-startup-id firefox --new-window https://calendar.google.com/calendar/u/0/r
 
 #lauch the ranger cheat sheet page in firefox in floating mode with the link https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb with the binding alt b
 for_window [title="RangerCheatSheet"] move absolute position center
 for_window [title="RangerCheatSheet"] floating enable, resize set 800 800 
-bindsym Mod1+b exec firefox --new-window https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb
+bindsym Mod1+b exec --no-startup-id firefox --new-window https://gist.github.com/heroheman/aba73e47443340c35526755ef79647eb
 
 # launch nvim ToDoList window floating
 for_window [title="ToDoList"] floating enable, resize set 800 600
 for_window [title="ToDoList"] move position center
 # Keybinding to open the to-do list in nvim
-bindsym $mod+Shift+t exec "kitty -T 'ToDoList' nvim /home/$(whoami)/SIM_study_kalu/to-do-list.txt"
+bindsym $mod+Shift+t exec --no-startup-id "kitty -T 'ToDoList' nvim /home/$(whoami)/SIM_study_kalu/to-do-list.txt"
 
-# open pavucontrol in floating mode
-bindsym $mod+Ctrl+m exec pavucontrol
+# open pavucontrol 
+bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
 # for_window [class="Pavucontrol"] floating enable
 
 # open the latest file in the downloads folder, can be used to open files sent by KDE connect
-bindsym $mod+Shift+o exec $bash-files-path/open-latest-download.sh
+bindsym $mod+Shift+o exec --no-startup-id $bash-files-path/open-latest-download.sh
 
 #toggle polybar
 bindsym Control+0 exec --no-startup-id $bash-files-path/toggle-polybar.sh
@@ -321,10 +321,10 @@ client.background       #ffffff
 bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dim
 
 # start polybar
-exec_always ~/.config/polybar/launch.sh &
+exec_always --no-startup-id ~/.config/polybar/launch.sh &
 
 # open helper page in firefox
-bindsym $mod+Shift+slash exec "firefox --new-window https://github.com/adityaanilshukla/I3-wm-config/blob/master/helper.md"
+bindsym $mod+Shift+slash exec --no-startup-id "firefox --new-window https://github.com/adityaanilshukla/I3-wm-config/blob/master/helper.md"
 
 #redo set wallpaper code to ensure that it is set
 exec_always --no-startup-id $bash-files-path/set_wallpaper.sh
