@@ -254,7 +254,6 @@ bindsym $mod+Shift+t exec --no-startup-id "kitty -T 'ToDoList' nvim /home/$(whoa
 
 # open pavucontrol 
 bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
-# for_window [class="Pavucontrol"] floating enable
 
 # open the latest file in the downloads folder, can be used to open files sent by KDE connect
 bindsym $mod+Shift+o exec --no-startup-id $bash-files-path/open-latest-download.sh
