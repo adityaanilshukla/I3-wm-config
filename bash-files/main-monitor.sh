@@ -1,14 +1,28 @@
 #!/bin/bash
 
-# Get the number of connected monitors
-connected_monitors=$(xrandr | grep " connected" | wc -l)
+# Path to images dir
+images_path="$HOME/.config/i3/images"
 
-# Define the autorandr profile names
-main_monitor_profile="Mainmonitor_only"
+# Detect internal display
+INTERNAL_DISPLAY=$(xrandr | grep " connected" | grep -E "eDP|LVDS" | cut -d' ' -f1)
 
-# Apply the main monitor profile only if more than one monitor is connected
-if [ "$connected_monitors" -gt 1 ]; then
-    autorandr --load $main_monitor_profile
+# Detect external display that supports 3440x1440
+EXTERNAL_DISPLAY=$(xrandr | grep " connected" | grep -vE "eDP|LVDS" | cut -d' ' -f1)
+
+if [ -n "$EXTERNAL_DISPLAY" ]; then
+    # First, set the external display to 3440x1440 explicitly
+    xrandr --output "$EXTERNAL_DISPLAY" --mode 3440x1440 --rate 60 --primary
+
+    # Then, turn off the internal laptop display
+    if [ -n "$INTERNAL_DISPLAY" ]; then
+        xrandr --output "$INTERNAL_DISPLAY" --off
+    fi
+
+    #set wallpaper fitting ultrawide resolution
+    feh --bg-scale "$images_path/mountain.png"
+
 else
-    echo "Only one or no monitor detected, no action taken."
+    echo "No external display detected!"
+    feh --bg-scale "$images_path/new-york-city-aerial-view-night-buildings.jpg"
+    exit 1
 fi

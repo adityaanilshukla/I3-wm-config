@@ -1,7 +1,7 @@
-# Automatically load autorandr configuration when external monitor is connected
-exec_always --no-startup-id ~/.screenlayout/single-ultrawide.sh
 #define a string that stores the path to bash-files directory
 set $bash-files-path ~/.config/i3/bash-files
+# Automatically load autorandr configuration when external monitor is connected
+exec_always --no-startup-id $bash-files-path/main-monitor.sh
 #defie a string that stores the path to images directory
 set $images-path ~/.config/i3/images
 #define a sting that stores the path to the python scripts directory
@@ -10,8 +10,8 @@ set $python-scripts-path ~/.config/i3/python-scripts
 #use xset to make the display never sleep 
 exec --no-startup-id xset s off -dpms
 
-#set the wallpaper based on the monitor resolution
-exec_always --no-startup-id $bash-files-path/set_wallpaper.sh
+#run picom
+exec_always --no-startup-id "pgrep -x picom > /dev/null || picom --vsync"
 
 # make the dunst notification daemon start
 exec --no-startup-id dunst
@@ -324,6 +324,3 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh &
 
 # open helper page in firefox
 bindsym $mod+Shift+slash exec --no-startup-id "firefox --new-window https://github.com/adityaanilshukla/I3-wm-config/blob/master/helper.md"
-
-#redo set wallpaper code to ensure that it is set
-exec_always --no-startup-id $bash-files-path/set_wallpaper.sh
