@@ -83,7 +83,8 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec  --no-startup-id kitty
+# bindsym $mod+Return exec  --no-startup-id kitty
+bindsym $mod+Return exec --no-startup-id kitty -e tmux
 
 # kill focused window
 bindsym $mod+q kill
@@ -103,6 +104,9 @@ bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -n
 
 # start rofi-beats
 bindsym $mod+b exec --no-startup-id python3 $python-scripts-path/rofi-beats-linux.py 
+
+# start rofi script launcher to launch custom scripts
+bindsym $mod+x exec --no-startup-id $bash-files-path/rofi-script-launcher.sh
 
 # mount external drives
 bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
@@ -261,12 +265,32 @@ bindsym $mod+Shift+o exec --no-startup-id $bash-files-path/open-latest-download.
 #toggle polybar
 bindsym Control+0 exec --no-startup-id $bash-files-path/toggle-polybar.sh
 
-#session handling
-#save the current session
-bindsym $mod+Ctrl+s exec --no-startup-id $bash-files-path/session-save-notify.sh 
-# restore the saved session
-bindsym $mod+Ctrl+r exec --no-startup-id ~/i3-restore/i3-restore
+set $i3_resurrect i3-resurrect
 
+# Save workspace mode.
+mode "save" {
+  bindsym 1 exec "$i3_resurrect save -w 1 --swallow=class,instance,title"
+  bindsym 2 exec "$i3_resurrect save -w 2 --swallow=class,instance,title"
+  bindsym 3 exec "$i3_resurrect save -w 3 --swallow=class,instance,title"
+  bindsym 4 exec "$i3_resurrect save -w 4 --swallow=class,instance,title"
+  bindsym 5 exec "$i3_resurrect save -w 5 --swallow=class,instance,title"
+  bindsym 6 exec "$i3_resurrect save -w 6 --swallow=class,instance,title"
+  bindsym 7 exec "$i3_resurrect save -w 7 --swallow=class,instance,title"
+  bindsym 8 exec "$i3_resurrect save -w 8 --swallow=class,instance,title"
+  bindsym 9 exec "$i3_resurrect save -w 9 --swallow=class,instance,title"
+  bindsym 0 exec "$i3_resurrect save -w 10 --swallow=class,instance,title"
+
+  # Back to normal: Enter, Escape, or s
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym s mode "default"
+  bindsym $mod+s mode "default"
+}
+
+bindsym $mod+Ctrl+s mode "save"
+
+# bindsym $mod+Ctrl+r mode "restore"
+bindsym $mod+Ctrl+r exec --no-startup-id i3-resurrect-manager
 
 #external monitor brightness controls
 #WORK IN PROGRESS!!!!
@@ -316,7 +340,6 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
 client.background       #ffffff
 
 # lock the screen in i3 wm
-# bindsym $mod+Shift+x exec --no-startup-id betterlocksreen -u $images-path/new-york-city-aerial-view-night-buildings.jpg -l dim
 bindsym $mod+Shift+x exec --no-startup-id betterlockscreen -l dim
 
 # start polybar
