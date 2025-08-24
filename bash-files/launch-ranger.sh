@@ -1,5 +1,4 @@
 #!/bin/bash
 
 # Launch Ranger
-# ranger
-kitty -e ranger
+alacritty -e ranger
