@@ -10,6 +10,11 @@ set $python-scripts-path ~/.config/i3/python-scripts
 #use xset to make the display never sleep 
 exec --no-startup-id xset s off -dpms
 
+# Start GNOME's xdg-desktop-portal backend so GTK4 apps (like Nautilus)
+# can read dark/light mode preference and other desktop settings.
+exec --no-startup-id /usr/lib/xdg-desktop-portal-gnome
+exec --no-startup-id /usr/lib/xdg-desktop-portal
+
 #run picom
 exec_always --no-startup-id "pgrep -x picom > /dev/null || picom --vsync"
 
