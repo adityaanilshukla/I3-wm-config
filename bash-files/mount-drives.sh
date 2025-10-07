@@ -4,6 +4,7 @@
 declare -A drives=(
   ["4C6E97526E973424"]="/mnt/Sanctuary"
   ["1C03-2149"]="/home/aditya/Media/echoSD"
+  ["9EC4-6986"]="/home/aditya/Media/Music-backup"
 )
 
 mount_drive() {
