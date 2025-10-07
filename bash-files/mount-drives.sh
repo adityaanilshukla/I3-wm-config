@@ -3,7 +3,7 @@
 # Define UUIDs and mountpoints
 declare -A drives=(
   ["4C6E97526E973424"]="/mnt/Sanctuary"
-  ["19FA-1B58"]="/home/aditya/Media/echoSD"
+  ["1C03-2149"]="/home/aditya/Media/echoSD"
 )
 
 mount_drive() {
