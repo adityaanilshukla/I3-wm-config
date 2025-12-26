@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 SCRIPTS_DIR=~/Scripts
