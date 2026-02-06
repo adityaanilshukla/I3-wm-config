@@ -1,4 +1,2 @@
 #!/bin/bash
-
-# Launch Ksnip in rectangular region mode
-ksnip -r
+maim -s | xclip -selection clipboard -t image/png

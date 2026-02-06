@@ -31,7 +31,7 @@ bindsym $mod+p exec --no-startup-id rofi -modi "clipboard:greenclip print" -show
 bindsym $mod+Shift+Delete exec --no-startup-id $bash-files-path/clear-clipboard.sh
 
 # launch ksnip in rectangular region mode
-bindsym $mod+Shift+s exec $bash-files-path/launch-screenshot-util.sh
+bindsym $mod+Shift+s exec --no-startup-id $bash-files-path/launch-screenshot-util.sh
 
 # Make the laptop screen the only active monitor
 bindsym $mod+Control+Shift+l exec --no-startup-id $bash-files-path/disable-external-monitors.sh
