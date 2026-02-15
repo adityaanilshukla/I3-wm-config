@@ -75,6 +75,7 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id alacritty -e tmux 
+bindsym $mod+T exec --no-startup-id alacritty 
 
 # kill focused window
 bindsym $mod+q kill
