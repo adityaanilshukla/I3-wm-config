@@ -27,24 +27,23 @@ is_muted() {
   pactl list sinks | awk -v sink="$default_sink" '/Name: /{sink_found = ($2 == sink)} sink_found && /Mute: / {if ($2 == "yes") exit 0; else exit 1}'
 }
 
-# Modify send_notification function to include a horizontal bar that represents the volume level
+# Volume HUD: Nerd Font speaker glyph + percentage in the text (centered
+# via dunstrc), and dunst's native progress bar (highlight color) below.
 send_notification() {
   local volume=$(get_volume)
-  local icon
+  local glyph
 
   if is_muted; then
-    icon="$HOME/.config/i3/icons/audio-volume-muted.svg"
+    glyph="󰝟"
+  elif (( volume < 34 )); then
+    glyph="󰕿"
+  elif (( volume < 67 )); then
+    glyph="󰖀"
   else
-    icon="$HOME/.config/i3/icons/audio-volume-high.svg"
+    glyph="󰕾"
   fi
 
-  # Create a horizontal bar that represents the volume level
-  local bar=$(seq -s "─" 0 $((volume / 5)) | sed 's/[0-9]//g')
-  # Add a space after the bar to separate it from the volume percentage
-  bar+=" "
-
-  dunstify -i "$icon" -t 1000 -r 2593 -u normal "Volume: $bar$volume%"
-
+  dunstify -t 1000 -r 2593 -u normal -h int:value:"$volume" "$glyph  $volume%"
 }
 
 # Adjust the volume based on the command argument
