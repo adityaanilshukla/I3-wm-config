@@ -10,6 +10,8 @@ set $python-scripts-path ~/.config/i3/python-scripts
 #use xset to make the display never sleep 
 exec --no-startup-id xset s off -dpms
 
+for_window [class="apply-bot"] move to workspace number 9
+
 # Start GNOME's xdg-desktop-portal backend so GTK4 apps (like Nautilus)
 # can read dark/light mode preference and other desktop settings.
 exec --no-startup-id /usr/lib/xdg-desktop-portal-gnome
@@ -75,7 +77,7 @@ tiling_drag modifier titlebar
 
 # start a terminal
 bindsym $mod+Return exec --no-startup-id alacritty -e tmux 
-bindsym $mod+T exec --no-startup-id alacritty 
+bindsym $mod+t exec --no-startup-id alacritty 
 
 # kill focused window
 bindsym $mod+q kill
