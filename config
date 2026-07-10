@@ -76,7 +76,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id alacritty -e tmux 
+#bindsym $mod+Return exec --no-startup-id alacritty -e tmux 
 bindsym $mod+t exec --no-startup-id alacritty 
 
 # kill focused window
@@ -218,9 +218,12 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec --no-startup-id $bash-files-path/brightness.sh up
-bindsym XF86MonBrightnessDown exec --no-startup-id $bash-files-path/brightness.sh down
+# Screen brightness controls (laptop backlight if present, else external
+# monitor via DDC/CI - see fn-brightness.sh)
+bindsym XF86MonBrightnessUp exec --no-startup-id $bash-files-path/fn-brightness.sh up
+bindsym XF86MonBrightnessDown exec --no-startup-id $bash-files-path/fn-brightness.sh down
+bindsym F1 exec --no-startup-id $bash-files-path/fn-brightness.sh down
+bindsym F2 exec --no-startup-id $bash-files-path/fn-brightness.sh up
 
 # launching apps section
 
@@ -262,10 +265,6 @@ bindsym $mod+Ctrl+s mode "save"
 
 # bindsym $mod+Ctrl+r mode "restore"
 bindsym $mod+Ctrl+r exec --no-startup-id i3-resurrect-manager
-
-# external monitor brightness controls (DDC/CI via ddcutil)
-bindsym $mod+Page_Up   exec --no-startup-id $bash-files-path/external-brightness.sh up
-bindsym $mod+Page_Down exec --no-startup-id $bash-files-path/external-brightness.sh down
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

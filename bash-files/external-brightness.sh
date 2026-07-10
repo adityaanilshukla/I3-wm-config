@@ -10,8 +10,15 @@
 #     invocation (the dominant startup cost), addressing the bus directly via
 #     --bus instead of --display.
 #   - Shows the HUD immediately, dispatches ddcutil in the background.
-#   - Uses --noverify and a tightened --sleep-multiplier; serializes concurrent
-#     ddcutil invocations with flock so rapid keypresses don't collide on i2c.
+#   - Uses --noverify and a tightened --sleep-multiplier.
+#   - A single ddcutil setvcp call takes ~300ms (i2c/DDC protocol overhead,
+#     not much of it configurable), so key-repeat bursts can fire far faster
+#     than ddcutil can keep up. Rather than queuing one blocking call per
+#     keypress (which falls further and further behind the HUD during a
+#     burst), only one ddcutil call is ever in flight per bus: later
+#     keypresses just update the cache, and the in-flight call picks up the
+#     latest target once it finishes instead of applying every intermediate
+#     value.
 #
 # Targets ddcutil's first detected display by default. Override by exporting
 # DDC_DISPLAY=N before invoking. To force a re-seed (e.g. after using the
@@ -108,9 +115,26 @@ send_notification "$new"
 
 if (( new != current )); then
   (
-    flock 9
-    ddcutil --bus "$BUS" --noverify --sleep-multiplier=0.1 \
-      setvcp 10 "$new" >/dev/null 2>&1
+    # If another instance already holds the lock, it's a worker draining the
+    # queue; it will pick up our cache update on its next iteration, so just
+    # exit rather than piling up another blocking ddcutil call behind it.
+    flock -n 9 || exit 0
+    applied=""
+    while true; do
+      target=$(<"$CACHE")
+      if [[ "$target" != "$applied" ]]; then
+        ddcutil --bus "$BUS" --noverify --sleep-multiplier=0.1 \
+          setvcp 10 "$target" >/dev/null 2>&1
+        applied=$target
+        continue
+      fi
+      # Target has been stable since the last apply. Give the tail end of a
+      # key-repeat burst a brief window to land before giving up the lock, to
+      # close the race between this check and a keypress that arrives just as
+      # we're about to exit.
+      sleep 0.05
+      [[ "$(<"$CACHE")" == "$target" ]] && break
+    done
   ) 9>"$LOCK" &
   disown
 fi
