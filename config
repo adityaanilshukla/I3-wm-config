@@ -294,7 +294,12 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Set border width
-for_window [class=".*"] border pixel 1 
+for_window [class=".*"] border pixel 1
+
+# Don't draw the border on screen-edge sides when a window is alone on its
+# workspace (avoids the focused-window border touching polybar); borders
+# between multiple tiled windows are unaffected.
+hide_edge_borders smart
 
 # Window colors
 # class                 border  backgr. text    indicator child_border
