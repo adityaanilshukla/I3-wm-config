@@ -90,7 +90,7 @@ bindsym Control + Shift+x exec --no-startup-id $bash-files-path/close-notificati
 
 # rofi launcher bindings
 # start rofi (a program launcher)
-bindsym $mod+d exec --no-startup-id rofi -show drun
+bindsym $mod+d exec --no-startup-id rofi -show drun -mesg "↵ select    Esc close"
 
 # start rofi calculator
 bindsym $mod+c exec --no-startup-id rofi -show calc -modi calc -no-show-match -no-sort
