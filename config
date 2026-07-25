@@ -1,5 +1,9 @@
 #define a string that stores the path to bash-files directory
 set $bash-files-path ~/.config/i3/bash-files
+
+# i3 requires this; without it, title bars and i3-nagbar fall back to the X
+# core "fixed" bitmap font and i3 logs an error on every startup.
+font pango:Hack Nerd Font 10
 # Automatically load autorandr configuration when external monitor is connected
 exec_always --no-startup-id $bash-files-path/main-monitor.sh
 #defie a string that stores the path to images directory
@@ -10,13 +14,12 @@ set $python-scripts-path ~/.config/i3/python-scripts
 #use xset to make the display never sleep 
 exec --no-startup-id xset s off -dpms
 
-for_window [class="apply-bot"] move to workspace number 9
-for_window [class="workday-bot"] move to workspace number 9
+assign [class="apply-bot"] number 9
+assign [class="workday-bot"] number 9
 
-# Start GNOME's xdg-desktop-portal backend so GTK4 apps (like Nautilus)
-# can read dark/light mode preference and other desktop settings.
-exec --no-startup-id /usr/lib/xdg-desktop-portal-gnome
-exec --no-startup-id /usr/lib/xdg-desktop-portal
+# GTK4 dark-mode support comes from xdg-desktop-portal-gnome, which is D-Bus
+# activated: any client asking for org.freedesktop.portal.Desktop starts it.
+# Backend choice belongs in ~/.config/xdg-desktop-portal/i3-portals.conf.
 
 #run picom
 exec_always --no-startup-id "pgrep -x picom > /dev/null || picom --vsync"
@@ -50,19 +53,9 @@ exec --no-startup-id dex --autostart --environment i3
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen --lock dim
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-# Use pactl to adjust volume in PulseAudio.
-set $refresh_i3status killall -SIGUSR1 i3status
-# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3statusi
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3statusi
-# bindsym XF86AudioMute exec --no-startup-id set-sink-mute @DEFAULT_SINK toggle && /home/aditya/Self-executables/toggle_volume.sh && $refresh_i3statusi
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # Volume Control Keybindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id $bash-files-path/volume.sh up
@@ -87,7 +80,7 @@ bindsym $mod+q kill
 bindsym --release $mod+Shift+q exec xkill
 
 # kill dunst notifications
-bindsym Control + Shift+x exec --no-startup-id $bash-files-path/close-notifications.sh
+bindsym Control+Shift+x exec --no-startup-id $bash-files-path/close-notifications.sh
 
 # rofi launcher bindings
 # start rofi (a program launcher)
@@ -104,7 +97,6 @@ bindsym $mod+x exec --no-startup-id $bash-files-path/rofi-script-launcher.sh
 
 # mount external drives
 bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
-bindsym $mod+F9 exec --no-startup-id $bash-files-path/mount-drives.sh
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
@@ -162,43 +154,30 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-# Define names for default workspaces for which we configure key bindings later on.
-# We use variables to avoid repeating the names in multiple places.
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 "3"
-set $ws4 "4"
-set $ws5 "5"
-set $ws6 "6"
-set $ws7 "7"
-set $ws8 "8"
-set $ws9 "9"
-set $ws10 "10"
-
 # switch to workspace
-bindsym $mod+1 workspace number $ws1
-bindsym $mod+2 workspace number $ws2
-bindsym $mod+3 workspace number $ws3
-bindsym $mod+4 workspace number $ws4
-bindsym $mod+5 workspace number $ws5
-bindsym $mod+6 workspace number $ws6
-bindsym $mod+7 workspace number $ws7
-bindsym $mod+8 workspace number $ws8
-bindsym $mod+9 workspace number $ws9
-bindsym $mod+0 workspace number $ws10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
 
 
 # audio control commands
@@ -240,33 +219,6 @@ bindsym $mod+Ctrl+m exec --no-startup-id pavucontrol
 #toggle polybar
 bindsym Control+0 exec --no-startup-id $bash-files-path/toggle-polybar.sh
 
-set $i3_resurrect i3-resurrect
-
-# Save workspace mode.
-mode "save" {
-  bindsym 1 exec "$i3_resurrect save -w 1 --swallow=class,instance,title"
-  bindsym 2 exec "$i3_resurrect save -w 2 --swallow=class,instance,title"
-  bindsym 3 exec "$i3_resurrect save -w 3 --swallow=class,instance,title"
-  bindsym 4 exec "$i3_resurrect save -w 4 --swallow=class,instance,title"
-  bindsym 5 exec "$i3_resurrect save -w 5 --swallow=class,instance,title"
-  bindsym 6 exec "$i3_resurrect save -w 6 --swallow=class,instance,title"
-  bindsym 7 exec "$i3_resurrect save -w 7 --swallow=class,instance,title"
-  bindsym 8 exec "$i3_resurrect save -w 8 --swallow=class,instance,title"
-  bindsym 9 exec "$i3_resurrect save -w 9 --swallow=class,instance,title"
-  bindsym 0 exec "$i3_resurrect save -w 10 --swallow=class,instance,title"
-
-  # Back to normal: Enter, Escape, or s
-  bindsym Return mode "default"
-  bindsym Escape mode "default"
-  bindsym s mode "default"
-  bindsym $mod+s mode "default"
-}
-
-bindsym $mod+Ctrl+s mode "save"
-
-# bindsym $mod+Ctrl+r mode "restore"
-bindsym $mod+Ctrl+r exec --no-startup-id i3-resurrect-manager
-
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -295,7 +247,8 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Set border width
-for_window [class=".*"] border pixel 1
+default_border pixel 1
+default_floating_border pixel 1
 
 # Don't draw the border on screen-edge sides when a window is alone on its
 # workspace (avoids the focused-window border touching polybar); borders
