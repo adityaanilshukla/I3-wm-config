@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Shared on-screen display, so volume and both brightness paths render the same
+# way on every machine. See hud.sh.
+source "$(dirname "$0")/hud.sh"
+
 # Function to get the current volume level of the default sink
 get_volume() {
   # Get the name of the default sink
@@ -27,23 +31,11 @@ is_muted() {
   pactl list sinks | awk -v sink="$default_sink" '/Name: /{sink_found = ($2 == sink)} sink_found && /Mute: / {if ($2 == "yes") exit 0; else exit 1}'
 }
 
-# Volume HUD: Nerd Font speaker glyph + percentage in the text (centered
-# via dunstrc), and dunst's native progress bar (highlight color) below.
 send_notification() {
-  local volume=$(get_volume)
-  local glyph
-
-  if is_muted; then
-    glyph="󰝟"
-  elif (( volume < 34 )); then
-    glyph="󰕿"
-  elif (( volume < 67 )); then
-    glyph="󰖀"
-  else
-    glyph="󰕾"
-  fi
-
-  dunstify -t 1000 -r 2593 -u normal -h int:value:"$volume" "$glyph  $volume%"
+  local volume muted=""
+  volume=$(get_volume)
+  is_muted && muted=muted
+  hud_volume "$volume" "$muted"
 }
 
 # Adjust the volume based on the command argument

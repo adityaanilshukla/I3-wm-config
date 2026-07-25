@@ -24,6 +24,10 @@
 # DDC_DISPLAY=N before invoking. To force a re-seed (e.g. after using the
 # monitor's physical buttons), delete the cache file in /tmp.
 
+# Shared on-screen display, so this path and the laptop backlight path render
+# identically. See hud.sh.
+source "$(dirname "$0")/hud.sh"
+
 STEP=10
 DISPLAY_NUM=${DDC_DISPLAY:-1}
 CACHE="/tmp/external-brightness-${DISPLAY_NUM}.value"
@@ -35,18 +39,6 @@ clamp() {
   (( v < 0 )) && v=0
   (( v > 100 )) && v=100
   echo "$v"
-}
-
-send_notification() {
-  local brightness=$1
-  local glyph
-
-  if   (( brightness < 34 )); then glyph="󰃞"
-  elif (( brightness < 67 )); then glyph="󰃟"
-  else                             glyph="󰃠"
-  fi
-
-  dunstify -t 1000 -r 2594 -u normal -h int:value:"$brightness" "$glyph  $brightness%"
 }
 
 # Seed the i2c bus number for the target display. Parses `ddcutil detect`
@@ -83,7 +75,7 @@ seed_brightness() {
 if [[ ! -s $BUS_CACHE ]]; then
   bus=$(seed_bus)
   if [[ -z $bus ]]; then
-    dunstify -t 1500 -r 2594 -u critical "Brightness" "ddcutil: no display $DISPLAY_NUM"
+    hud_error "Brightness" "ddcutil: no display $DISPLAY_NUM"
     exit 1
   fi
   echo "$bus" > "$BUS_CACHE"
@@ -94,7 +86,7 @@ BUS=$(<"$BUS_CACHE")
 if [[ ! -s $CACHE ]]; then
   seed=$(seed_brightness)
   if [[ -z $seed ]]; then
-    dunstify -t 1500 -r 2594 -u critical "Brightness" "ddcutil: read failed on bus $BUS"
+    hud_error "Brightness" "ddcutil: read failed on bus $BUS"
     exit 1
   fi
   echo "$seed" > "$CACHE"
@@ -111,7 +103,7 @@ esac
 # Update cache and HUD immediately. ddcutil runs in the background so the user
 # never waits on i2c.
 echo "$new" > "$CACHE"
-send_notification "$new"
+hud_brightness "$new"
 
 if (( new != current )); then
   (
