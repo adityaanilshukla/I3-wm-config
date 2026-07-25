@@ -1,12 +1,9 @@
-workspace_3_programs.sh
-workspace_3_layout.json
-workspace_2_programs.sh
-workspace_2_layout.json
-workspace_1_programs.sh
-workspace_1_layout.json
-workspace_4_layout.json
-workspace_4_programs.sh
-workspace_5_layout.json
-workspace_5_programs.sh
-i3-bash-files/check-connection-type.sh
-workspace_1_DP2_layout.json
+# The workspace_*_layout.json / workspace_*_programs.sh entries that used to be
+# here were i3-resurrect session dumps. i3-resurrect is no longer installed on
+# any machine and its save mode has been removed from the config, so nothing
+# writes those files any more.
+
+# Editor/OS noise
+*.swp
+*~
+.DS_Store
