@@ -92,8 +92,13 @@ bindsym $mod+b exec --no-startup-id python3 $python-scripts-path/rofi-beats-linu
 # start rofi script launcher to launch custom scripts
 bindsym $mod+x exec --no-startup-id $bash-files-path/rofi-script-launcher.sh
 
-# mount external drives
-bindsym $mod+Insert exec --no-startup-id $bash-files-path/mount-drives.sh
+# mount external drives. ~/Scripts/mount-drive comes from the dotfiles repo and
+# supersedes the old bash-files/mount-drives.sh: it detects drives with lsblk
+# instead of hardcoding three UUIDs, mounts via udisksctl (no password) unless
+# a fixed mountpoint is configured, and matches echoSD by LABEL rather than a
+# FAT serial number that changes on every reformat -- see 7ccc71c, 4c77804,
+# 2c0f8ac, 5e5c607, four commits spent chasing that UUID.
+bindsym $mod+Insert exec --no-startup-id ~/Scripts/mount-drive
 
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
